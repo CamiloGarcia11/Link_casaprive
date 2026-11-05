@@ -121,8 +121,8 @@
 }
 
 .logo-icon-mirror-sheen {
-  -webkit-mask-image: url('/brand/logo-cp-icon.png');
-  mask-image: url('/brand/logo-cp-icon.png');
+  -webkit-mask-image: url('/brand/logo-cp-burgundy.png');
+  mask-image: url('/brand/logo-cp-burgundy.png');
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-repeat: no-repeat;
@@ -182,20 +182,121 @@
   pointer-events: none;
 }
 
-/* Respiración suave para esferas de luz ambiental */
+/* =========================================================================
+   ANIMACIONES AMBIENTALES DE ALTA PRODUCCIÓN (FONDO DINÁMICO)
+   ========================================================================= */
+@keyframes orbFloat1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(25px, -35px) scale(1.06);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.96);
+  }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(-30px, 25px) scale(0.94);
+  }
+  66% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+}
+
+.animate-orb-1 {
+  animation: orbFloat1 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-orb-2 {
+  animation: orbFloat2 24s ease-in-out infinite;
+  will-change: transform;
+}
+
 @keyframes ambientBreathe {
   0%, 100% {
     opacity: 0.6;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    opacity: 0.9;
-    transform: scale(1.08);
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
 .animate-ambient-breathe {
-  animation: ambientBreathe 9s ease-in-out infinite;
+  animation: ambientBreathe 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* =========================================================================
+   LOGO DINÁMICO EN EL FONDO (Aparición y Desaparición Medio Borroso)
+   - Emerge desde un desenfoque elegante (blur 14px -> 4px)
+   - Se hace visible nítido-difuso con opacidad envolvente (~18%-20%)
+   - Se desvanece suavemente en un ciclo orgánico de 7.5 segundos
+   ========================================================================= */
+@keyframes dynamicLogoEmerge {
+  0% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translate(-50%, -50%) scale(0.90);
+  }
+  30% {
+    opacity: 0.16;
+    filter: blur(5px);
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  50% {
+    opacity: 0.22;
+    filter: blur(3.5px);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  70% {
+    opacity: 0.16;
+    filter: blur(5px);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+}
+
+.animate-dynamic-logo-blur {
+  animation: dynamicLogoEmerge 7.5s cubic-bezier(0.35, 0.1, 0.25, 1) infinite;
+  will-change: transform, opacity, filter;
+}
+
+/* Partículas flotantes sutiles de seda y borgoña */
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0px) scale(0.7);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(30px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation-name: floatParticle;
+  animation-timing-function: cubic-bezier(0.2, 0.4, 0.3, 0.8);
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
 }
 
 /* Sombras multicapa refinadas */
