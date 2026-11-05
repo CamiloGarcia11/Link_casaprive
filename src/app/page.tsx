@@ -182,24 +182,23 @@ export default function Home() {
             © 2026 Casa Privé. Todos los derechos reservados.
           </p>
 
-          {/* Botón de Visión Web (100% Mobile Friendly & Touch-Optimized) */}
+          {/* Botón de Visión Web: Discreto, elegante y proporcionado */}
           <motion.a
             href="https://visionwebcl.pages.dev/"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.03, y: -1 }}
-            whileTap={{ scale: 0.96 }}
-            className="mt-2 group relative inline-flex items-center justify-center gap-2 px-4.5 py-3 min-h-[48px] rounded-full bg-white/85 hover:bg-white text-luxury-black border border-luxury-border/80 hover:border-luxury-burgundy/40 shadow-subtle hover:shadow-luxury-hover backdrop-blur-md transition-all duration-300 text-xs font-medium touch-manipulation select-none active:bg-luxury-cream-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-burgundy/40"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="mt-1 group inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-white/60 hover:bg-white text-luxury-muted hover:text-luxury-black border border-luxury-border/60 hover:border-luxury-burgundy/30 transition-all duration-200 text-[10.5px] font-sans tracking-tight shadow-[0_1px_2px_rgba(0,0,0,0.03)] touch-manipulation select-none"
             aria-label="Sitio desarrollado por Visión Web"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-luxury-muted group-hover:text-luxury-black transition-colors">
+            <span>
               Sitio desarrollado por{" "}
-              <strong className="font-semibold text-luxury-burgundy group-hover:underline">
+              <strong className="font-semibold text-luxury-black group-hover:text-luxury-burgundy transition-colors">
                 Visión Web
               </strong>
             </span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-luxury-burgundy transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="w-3 h-3 text-luxury-muted group-hover:text-luxury-burgundy transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </motion.a>
         </motion.footer>
       </div>
