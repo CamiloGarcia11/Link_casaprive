@@ -11,17 +11,14 @@ export function AmbientLogoBackground() {
     setMounted(true);
   }, []);
 
-  // Partículas sutiles de polvo de seda y brillo de alta costura
+  // Partículas ultra-ligeras con aceleración por GPU (máxima fluidez en móviles)
   const particles = useMemo(
     () => [
-      { id: 1, left: "10%", size: 2.5, delay: 0, duration: 16, color: "bg-luxury-burgundy/30" },
-      { id: 2, left: "24%", size: 2, delay: 4, duration: 19, color: "bg-luxury-champagne/35" },
-      { id: 3, left: "38%", size: 2.5, delay: 2, duration: 17, color: "bg-luxury-burgundy/25" },
-      { id: 4, left: "54%", size: 2, delay: 7, duration: 21, color: "bg-luxury-champagne/40" },
-      { id: 5, left: "70%", size: 3, delay: 1, duration: 18, color: "bg-luxury-burgundy/30" },
-      { id: 6, left: "86%", size: 2, delay: 5, duration: 20, color: "bg-luxury-champagne/35" },
-      { id: 7, left: "18%", size: 2.5, delay: 9, duration: 22, color: "bg-luxury-burgundy/20" },
-      { id: 8, left: "80%", size: 2, delay: 11, duration: 18, color: "bg-luxury-champagne/30" },
+      { id: 1, left: "12%", size: 2.5, delay: 0, duration: 16, color: "bg-luxury-burgundy/30" },
+      { id: 2, left: "32%", size: 2, delay: 3, duration: 18, color: "bg-luxury-champagne/35" },
+      { id: 3, left: "55%", size: 2, delay: 6, duration: 20, color: "bg-luxury-burgundy/25" },
+      { id: 4, left: "75%", size: 2.5, delay: 1, duration: 17, color: "bg-luxury-champagne/35" },
+      { id: 5, left: "90%", size: 2, delay: 4, duration: 19, color: "bg-luxury-burgundy/20" },
     ],
     []
   );
@@ -29,44 +26,58 @@ export function AmbientLogoBackground() {
   return (
     <div
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center select-none"
+      style={{ contain: "strict" }}
       aria-hidden="true"
     >
-      {/* 1. Iluminación Ambiental Atmosférica (Acento Borgoña & Champagne) */}
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[580px] h-[580px] rounded-full bg-gradient-to-b from-luxury-burgundy/12 via-luxury-burgundy/6 to-transparent blur-[110px] animate-orb-1" />
-      <div className="absolute top-1/3 -right-36 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-luxury-champagne/18 via-luxury-champagne/8 to-transparent blur-[100px] animate-orb-2" />
+      {/* 1. Iluminación Ambiental Optimizada con Gradientes Radiales Nativos (Cero consumo de GPU) */}
       <div
-        className="absolute -bottom-36 -left-36 w-[460px] h-[460px] rounded-full bg-gradient-to-tr from-luxury-burgundy-dark/10 via-luxury-burgundy/6 to-transparent blur-[110px] animate-orb-1"
-        style={{ animationDelay: "-6s" }}
+        className="absolute -top-24 left-1/2 -translate-x-1/2 w-[480px] h-[480px] rounded-full pointer-events-none opacity-80"
+        style={{
+          background: "radial-gradient(circle, rgba(103, 38, 46, 0.08) 0%, rgba(201, 175, 150, 0.04) 45%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute top-1/3 -right-28 w-[360px] h-[360px] rounded-full pointer-events-none opacity-70"
+        style={{
+          background: "radial-gradient(circle, rgba(201, 175, 150, 0.12) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute -bottom-28 -left-28 w-[380px] h-[380px] rounded-full pointer-events-none opacity-60"
+        style={{
+          background: "radial-gradient(circle, rgba(78, 29, 35, 0.08) 0%, transparent 70%)",
+        }}
       />
 
-      {/* 2. Marca de Agua del Logo Oficial: Se renderiza únicamente tras el montaje del cliente para evitar cualquier flash o parpadeo inicial */}
+      {/* 2. Marca de Agua Dinámica: Ligera, fluida y sin saltos */}
       {mounted && (
-        <div className="relative flex items-center justify-center w-[300px] h-[300px] sm:w-[440px] sm:h-[440px] md:w-[540px] md:h-[540px]">
-          {/* Halo Radial del Color de Acento */}
+        <div className="relative flex items-center justify-center w-[270px] h-[270px] sm:w-[360px] sm:h-[360px]">
+          {/* Halo Radial Sutil */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{
-              opacity: [0.2, 0.55],
-              scale: [0.9, 1.08],
-            }}
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: [0.2, 0.45] }}
             transition={{
-              duration: 7.5,
+              duration: 7,
               repeat: Infinity,
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            className="absolute -inset-10 rounded-full bg-gradient-to-tr from-luxury-burgundy/15 via-luxury-champagne/18 to-transparent blur-3xl pointer-events-none -z-10"
+            className="absolute inset-0 rounded-full pointer-events-none -z-10"
+            style={{
+              background: "radial-gradient(circle, rgba(103, 38, 46, 0.09) 0%, rgba(201, 175, 150, 0.06) 40%, transparent 70%)",
+              willChange: "opacity",
+            }}
           />
 
-          {/* Monograma Oficial Casa Privé con Animación Suave de Respiración */}
+          {/* Monograma Oficial Casa Privé con Respiración a 60 FPS */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
+            initial={{ opacity: 0 }}
             animate={{
-              opacity: [0.015, 0.06],
-              scale: [0.94, 1.04],
+              opacity: [0.015, 0.055],
+              scale: [0.95, 1.03],
             }}
             transition={{
-              duration: 7.5,
+              duration: 7,
               repeat: Infinity,
               repeatType: "reverse",
               ease: "easeInOut",
@@ -77,9 +88,9 @@ export function AmbientLogoBackground() {
             <Image
               src="/brand/logo-cp-burgundy.png"
               alt="Casa Privé Logo Watermark"
-              width={540}
-              height={540}
-              className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(103,38,46,0.06)] select-none"
+              width={360}
+              height={360}
+              className="w-full h-full object-contain select-none"
             />
           </motion.div>
         </div>
@@ -97,6 +108,7 @@ export function AmbientLogoBackground() {
             height: `${p.size}px`,
             animationDelay: `${p.delay}s`,
             animationDuration: `${p.duration}s`,
+            willChange: "transform, opacity",
           }}
         />
       ))}

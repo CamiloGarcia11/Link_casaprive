@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface GlyphLotteryProps {
   text: string;
@@ -10,24 +10,22 @@ interface GlyphLotteryProps {
   duration?: number;
   stagger?: number;
   charset?: string;
-  onClick?: () => void;
 }
 
-const DEFAULT_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const DEFAULT_CHARSET = "CASA PRIVÉ0123456789";
 
 export function GlyphLottery({
   text = "CASA PRIVÉ",
   className = "",
-  reelLength = 16,
-  duration = 1.1,
-  stagger = 0.065,
+  reelLength = 8,
+  duration = 0.95,
+  stagger = 0.05,
   charset = DEFAULT_CHARSET,
 }: GlyphLotteryProps) {
   const [spinKey, setSpinKey] = useState(0);
-  const [lockedIndices, setLockedIndices] = useState<Set<number>>(new Set());
   const [allLocked, setAllLocked] = useState(false);
 
-  // Generar tiras de glifos para cada carácter
+  // Pre-calcular tiras de carretes compactas y eficientes (8 glifos por letra)
   const reels = useMemo(() => {
     return text.split("").map((char) => {
       if (char === " ") return null;
@@ -37,34 +35,27 @@ export function GlyphLottery({
         const randomChar = charset[Math.floor(Math.random() * charset.length)];
         items.push(randomChar);
       }
-      items.push(char); // El último carácter es el destino real
+      items.push(char); // Letra de destino
       return items;
     });
   }, [text, reelLength, charset, spinKey]);
 
-  // Manejar el bloqueo secuencial de cada carrete
   const triggerSpin = useCallback(() => {
-    setLockedIndices(new Set());
     setAllLocked(false);
     setSpinKey((prev) => prev + 1);
 
-    // Notificar el bloqueo secuencial de cada letra
-    text.split("").forEach((char, index) => {
-      if (char === " ") return;
-      const lockTime = (duration + index * stagger) * 1000;
-      setTimeout(() => {
-        setLockedIndices((prev) => new Set([...prev, index]));
-      }, lockTime - 120);
-    });
-
-    const totalTime = (duration + text.length * stagger + 0.3) * 1000;
-    setTimeout(() => {
+    // Un único temporizador para el final de la animación (cero re-renders intermedios)
+    const totalTime = (duration + text.length * stagger + 0.15) * 1000;
+    const timer = setTimeout(() => {
       setAllLocked(true);
     }, totalTime);
-  }, [text, duration, stagger]);
+
+    return () => clearTimeout(timer);
+  }, [text.length, duration, stagger]);
 
   useEffect(() => {
-    triggerSpin();
+    const cleanup = triggerSpin();
+    return cleanup;
   }, [triggerSpin]);
 
   return (
@@ -73,10 +64,11 @@ export function GlyphLottery({
       aria-level={1}
       aria-label={text}
       onClick={triggerSpin}
-      title="Toca para girar de nuevo"
+      title="Toca para girar"
       className={`relative inline-flex items-center justify-center select-none cursor-pointer touch-manipulation active:scale-[0.98] transition-transform ${className}`}
+      style={{ contain: "layout paint" }}
     >
-      {/* Contenedor de carretes tipo slot machine */}
+      {/* Contenedor de carretes con aceleración por hardware */}
       <span className="relative inline-flex items-center justify-center overflow-hidden">
         {text.split("").map((char, index) => {
           if (char === " ") {
@@ -90,57 +82,36 @@ export function GlyphLottery({
           const reel = reels[index];
           if (!reel) return null;
 
-          const isLocked = lockedIndices.has(index);
-
           return (
             <span
               key={`char-${index}-${spinKey}`}
               className="relative inline-block h-[1.18em] overflow-hidden leading-none align-middle"
-              style={{ width: "auto" }}
             >
               <motion.span
                 initial={{ y: "0%" }}
                 animate={{ y: `-${((reel.length - 1) / reel.length) * 100}%` }}
                 transition={{
                   duration: duration + index * stagger,
-                  ease: [0.16, 0.9, 0.22, 1], // Curva de desaceleración tipo slot machine
+                  ease: [0.16, 0.9, 0.22, 1], // Desaceleración suave tipo slot machine
                 }}
                 className="flex flex-col items-center"
+                style={{ willChange: "transform" }}
               >
-                {reel.map((glyph, gIndex) => {
-                  const isTarget = gIndex === reel.length - 1;
-                  return (
-                    <span
-                      key={gIndex}
-                      className={`h-[1.18em] flex items-center justify-center leading-none transition-colors duration-200 ${
-                        isTarget && isLocked
-                          ? "text-luxury-burgundy"
-                          : "text-luxury-burgundy/60"
-                      }`}
-                    >
-                      {glyph}
-                    </span>
-                  );
-                })}
+                {reel.map((glyph, gIndex) => (
+                  <span
+                    key={gIndex}
+                    className="h-[1.18em] flex items-center justify-center leading-none text-luxury-burgundy"
+                  >
+                    {glyph}
+                  </span>
+                ))}
               </motion.span>
-
-              {/* Destello sutil dorado/champagne al momento de encajar el carrete */}
-              {isLocked && !allLocked && (
-                <motion.span
-                  initial={{ opacity: 0.8, scale: 1.15 }}
-                  animate={{ opacity: 0, scale: 1 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="absolute inset-0 pointer-events-none text-luxury-champagne font-bold flex items-center justify-center leading-none"
-                >
-                  {char}
-                </motion.span>
-              )}
             </span>
           );
         })}
       </span>
 
-      {/* Capa de Reflejo Espejo Exclusivo (text-mirror-sheen) cuando todos los carretes están bloqueados */}
+      {/* Capa de Reflejo Espejo Exclusivo activada al completar el giro */}
       {allLocked && (
         <span
           aria-hidden="true"

@@ -1,5 +1,20 @@
 import type { Metadata, Viewport } from "next";
+import { Cinzel, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -65,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className={`${cinzel.variable} ${plusJakarta.variable} scroll-smooth`}>
       <body className="min-h-screen bg-luxury-bg text-luxury-black font-sans antialiased selection:bg-luxury-burgundy selection:text-luxury-cream">
         {children}
       </body>
