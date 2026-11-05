@@ -1,10 +1,16 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export function AmbientLogoBackground() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Partículas sutiles de polvo de seda y brillo de alta costura
   const particles = useMemo(
     () => [
@@ -33,50 +39,53 @@ export function AmbientLogoBackground() {
         style={{ animationDelay: "-6s" }}
       />
 
-      {/* 2. Marca de Agua Animada del Logo Oficial (Breathing / Fade In-Out con Framer Motion) */}
-      <div className="relative flex items-center justify-center w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[580px] md:h-[580px]">
-        {/* Halo Radial del Color de Acento que respira en sincronía */}
-        <motion.div
-          animate={{
-            opacity: [0.25, 0.65],
-            scale: [0.9, 1.08],
-          }}
-          transition={{
-            duration: 7.5,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-          className="absolute -inset-10 rounded-full bg-gradient-to-tr from-luxury-burgundy/15 via-luxury-champagne/18 to-transparent blur-3xl pointer-events-none -z-10"
-        />
-
-        {/* Monograma Oficial Casa Privé con Animación Continua a 60 FPS */}
-        <motion.div
-          animate={{
-            opacity: [0.015, 0.065],
-            scale: [0.92, 1.05],
-          }}
-          transition={{
-            duration: 7.5,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-          className="relative w-full h-full flex items-center justify-center"
-          style={{ willChange: "transform, opacity" }}
-        >
-          <Image
-            src="/brand/logo-cp-burgundy.png"
-            alt="Casa Privé Logo Watermark"
-            width={580}
-            height={580}
-            priority
-            className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(103,38,46,0.06)] select-none"
+      {/* 2. Marca de Agua del Logo Oficial: Se renderiza únicamente tras el montaje del cliente para evitar cualquier flash o parpadeo inicial */}
+      {mounted && (
+        <div className="relative flex items-center justify-center w-[300px] h-[300px] sm:w-[440px] sm:h-[440px] md:w-[540px] md:h-[540px]">
+          {/* Halo Radial del Color de Acento */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.88 }}
+            animate={{
+              opacity: [0.2, 0.55],
+              scale: [0.9, 1.08],
+            }}
+            transition={{
+              duration: 7.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+            className="absolute -inset-10 rounded-full bg-gradient-to-tr from-luxury-burgundy/15 via-luxury-champagne/18 to-transparent blur-3xl pointer-events-none -z-10"
           />
-        </motion.div>
-      </div>
 
-      {/* 3. Micro-Partículas de Seda Flotante (Dinámica Sutil sin Distracción) */}
+          {/* Monograma Oficial Casa Privé con Animación Suave de Respiración */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{
+              opacity: [0.015, 0.06],
+              scale: [0.94, 1.04],
+            }}
+            transition={{
+              duration: 7.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+            className="relative w-full h-full flex items-center justify-center"
+            style={{ willChange: "transform, opacity" }}
+          >
+            <Image
+              src="/brand/logo-cp-burgundy.png"
+              alt="Casa Privé Logo Watermark"
+              width={540}
+              height={540}
+              className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(103,38,46,0.06)] select-none"
+            />
+          </motion.div>
+        </div>
+      )}
+
+      {/* 3. Micro-Partículas de Seda Flotante */}
       {particles.map((p) => (
         <span
           key={p.id}
