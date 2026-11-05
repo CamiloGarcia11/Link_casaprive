@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-cinzel: 'Cinzel', serif;
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  
+  /* PALETA OFICIAL CASA PRIVÉ (Exacta de Encargos_Julieth) */
+  --color-burgundy: #67262E;
+  --color-burgundy-light: #7E2F39;
+  --color-burgundy-dark: #4E1D23;
+  
+  --color-cream: #F6ECD1;
+  --color-cream-light: #F8F7E5;
+  --color-cream-dark: #E2D3B3;
+  
+  --bg-primary: #FAF8F5;            /* Fondo marfil cálido de seda */
+  --bg-card: #F6ECD1;               /* Almond / Vainilla cálido */
+  --bg-card-warm: #FAF8F2;          /* Blush marfil suave */
+  --bg-surface: #FFFFFF;
+  
+  --text-primary: #23181A;          /* Negro espresso profundo */
+  --text-muted: #625D5A;            /* Taupe cálido atenuado */
+  
+  --color-stone: #67262E;
+  --color-champagne: #C9AF96;       /* Champagne / camel de la marca */
+  --color-gold: #C9AF96;
+  
+  --border-subtle: #E8DEC8;
+  --border-dark: #D5C4AC;
+}
+
+@layer base {
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, .font-cinzel {
+    font-family: var(--font-cinzel);
+    letter-spacing: 0.08em;
+  }
+
+  .font-cormorant {
+    font-family: var(--font-cormorant);
+  }
+}
+
+/* Clases tipográficas de alta gama */
+.tracking-luxury-wide {
+  letter-spacing: 0.22em;
+}
+
+.tracking-editorial {
+  letter-spacing: 0.14em;
+}
+
+.tracking-cinzel {
+  letter-spacing: 0.15em;
+}
+
+/* =========================================================================
+   ANIMACIÓN DE REFLEJO DE ESPEJO EN LOGO Y TEXTO (Exacta de Encargos_Julieth)
+   ========================================================================= */
+@keyframes textLetterSheen {
+  0% {
+    background-position: 220% 0;
+    opacity: 0;
+  }
+  1.5% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 1;
+  }
+  18% {
+    background-position: -220% 0;
+    opacity: 0;
+  }
+  18.001%, 100% {
+    background-position: -220% 0;
+    opacity: 0;
+  }
+}
+
+.text-mirror-sheen {
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 36%,
+    rgba(255, 255, 255, 0.45) 44%,
+    rgba(255, 255, 255, 1) 50%,
+    #F6ECD1 52%,
+    rgba(255, 255, 255, 0.45) 56%,
+    transparent 64%,
+    transparent 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: textLetterSheen 12s cubic-bezier(0.25, 0.1, 0.25, 1) 1.2s infinite;
+  will-change: background-position, opacity;
+  pointer-events: none;
+}
+
+.logo-icon-mirror-sheen {
+  -webkit-mask-image: url('/brand/logo-cp-icon.png');
+  mask-image: url('/brand/logo-cp-icon.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 36%,
+    rgba(255, 255, 255, 0.55) 44%,
+    rgba(255, 255, 255, 1) 50%,
+    #F6ECD1 52%,
+    rgba(255, 255, 255, 0.55) 56%,
+    transparent 64%,
+    transparent 100%
+  );
+  background-size: 260% 100%;
+  animation: textLetterSheen 12s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  will-change: background-position, opacity;
+  pointer-events: none;
+}
+
+/* =========================================================================
+   ANIMACIÓN DE DESTELLO DIAGONAL PERIÓDICO (SHIMMER) PARA EL BOTÓN PRINCIPAL
+   ========================================================================= */
+@keyframes shimmerGlow {
+  0% {
+    transform: translateX(-160%) skewX(-25deg);
+  }
+  30%, 100% {
+    transform: translateX(260%) skewX(-25deg);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.25) 70%,
+    transparent 100%
+  );
+  animation: shimmerGlow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+/* Respiración suave para esferas de luz ambiental */
+@keyframes ambientBreathe {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+.animate-ambient-breathe {
+  animation: ambientBreathe 9s ease-in-out infinite;
+}
+
+/* Sombras multicapa refinadas */
+.shadow-luxury-card {
+  box-shadow: 0 10px 30px -10px rgba(103, 38, 46, 0.08), 0 4px 12px -2px rgba(103, 38, 46, 0.03);
+}
+
+.shadow-luxury-hover {
+  box-shadow: 0 20px 40px -15px rgba(103, 38, 46, 0.16), 0 8px 20px -4px rgba(103, 38, 46, 0.06);
+}
+
+.shadow-pill {
+  box-shadow: 0 6px 20px -2px rgba(103, 38, 46, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5C4AC;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #67262E;
+}
