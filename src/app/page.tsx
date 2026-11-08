@@ -143,7 +143,18 @@ export default function Home() {
               }
             />
 
-            {/* 3. Instagram: Logotipo en Borgoña de la Marca */}
+            {/* 3. Grupo VIP de Difusión (Canal oficial WhatsApp) */}
+            <LinkCard
+              title="Grupo VIP de Difusión"
+              subtitle="Lanzamientos exclusivos, novedades & acceso prioritario"
+              url="https://chat.whatsapp.com/EgCmMYFlEwXB8APaEGX1tS?s=cl&p=i&mlu=4&ilr=4&iam=2"
+              badge="Comunidad VIP"
+              icon={
+                <WhatsAppIcon className="w-5 h-5 text-luxury-burgundy group-hover:text-luxury-cream transition-colors duration-300" />
+              }
+            />
+
+            {/* 4. Instagram: Logotipo en Borgoña de la Marca */}
             <LinkCard
               title="Síguenos en Instagram (@casaprive__)"
               subtitle="Pasarela, lanzamientos y estilo de vida"
@@ -153,7 +164,7 @@ export default function Home() {
               }
             />
 
-            {/* 4. TikTok: Logotipo en Borgoña de la Marca */}
+            {/* 5. TikTok: Logotipo en Borgoña de la Marca */}
             <LinkCard
               title="Descubre más en TikTok (@casaprive___)"
               subtitle="Detalles exclusivos, unboxing & novedades"
